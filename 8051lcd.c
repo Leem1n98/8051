@@ -30,17 +30,19 @@ put ir(00001DCB); D=1:open LCD, D=0:close LCD; C=1:show cursor, C=0, no cursor; 
 put ir(001LNFxx); L=1:Data 8bit, L=0:Data 4bit; N=1:2-line display, N=0: single-line display; F=1:5x10, F=0:5x7
 */
 #include "reg51.h"
-#define D0  	0
-#define B3b 	1
-#define	C4		2
-#define	D4		3
-#define	E4		4
-#define	F4		5
-#define	G4b		6
-#define	G4		7
-#define	A4		8
-#define	B4b		9
-#define	C5		10
+
+#define	 	D0  	0
+#define		B3b   	11
+#define		C4		2
+#define		D4		3
+#define		E4		4
+#define		F4		5
+#define		G4b		6
+#define		G4		7
+#define		A4		8
+#define		B4b		9
+#define		C5		10
+
 //unsigned char SHOW[]={"TIME"};
 //unsigned char *pt=SHOW;
 unsigned char lcd[]={'0','1','2','3','4','5','6','7','8','9'};
@@ -56,17 +58,13 @@ void put_dr(int cntl_word);
 void check_busy();
 void cursor_home();
 void clock();
-
-
-void main()
-{
-	int night_dancer[]={
+short int night_dancer[112]={
 	G4, G4, D0, G4, D0,		//0
 	G4b, D0, G4b, D0, D4,	//1
 	D0,	C4,	D0, B3b, D0,	//2
 	C4, D0, B3b, D0, C4,	//3
 	D0, B3b, D0, D4, D4,	//4
-	D0, B3b, D0, C4, D0.	//5
+	D0, B3b, D0, C4, D0,	//5
 	B3b, D0, C4, D0 ,D4,	//6
 	D0, F4, D0, D4, D0,		//7
 	C4, D0 ,B3b, D0, C4,	//8
@@ -81,9 +79,13 @@ void main()
 	D0, B4b, D0, B3b, D0,	//17
 	B3b, D0, B3b, D0, D4,	//18
 	D0, F4, D0, C4, D0,		//19
-	B3b, B3b, D0, G4, D0	//20
-	G4, D0, B4b, D0, C4		//21
+	B3b, B3b, D0, G4, D0,	//20
+	G4, D0, B4b, D0, C4,	//21
 	D0, B3b	};
+unsigned char a[]={ 'M', 'e', 'r', 'r', 'y',' ',
+				'X', 'm', 'a', 's' };
+void main() 
+{	
 	
 	set_lcd();
 	cursor_home();
@@ -96,14 +98,10 @@ void main()
 	TR0=1; //TCON.4 SET TIMER0 RUN
 // IE.7(SET ALL INTERRUPT ENABLE);IE.1(ENABLE TIMER0 INTERRUPT)
 	IE   = 0x82; // 10000010B
-	int i,j,k; 
-	char a[]={ 'M', 'e', 'r', 'r', 'y',' ',
-				'X', 'm', 'a', 's' };
+	
 	while(1)
 	{
-		for(int T= 0; T<= 112; T++){
-			melody(night_dancer[T]);
-		}
+		
 		if (num == 200)
 		{
 		 	clock();
@@ -111,10 +109,12 @@ void main()
 	}
 }
 
+
 //******
 void melody(int pitch)
 {
 	switch(pitch){
+		unsigned int i,j,k;
 		case D0:
 		for( i=0; i<= 200; i++){
 			for( j=0; j<= 250; j++){
@@ -383,7 +383,7 @@ READ_AGAIN:
 
 void cursor_home()
 {
- 	put_ir(0x01);
+ 	put_ir(0x01); 
 	put_ir(0x02);
 }
 
@@ -428,7 +428,7 @@ void clock()
 	delay(100);
 
  	
-	_ir(0x80);
+	put_ir(0x80);
 	put_dr(lcd[hour1]);
 	delay(100);
 }
