@@ -291,8 +291,10 @@ void Timer0(void) interrupt 1 using 1
 	TH0  = (65536-5000)/256;
 	TL0  = (65536-5000)%256;
 	TR0=1; // TIMER0 TO BE CONTINUE
+	
+	
 
-	num=num-1;
+/*	num=num-1;
 	if (num==0)
 	{
 		num=200; // 200x5ms = 1 second
@@ -328,7 +330,7 @@ void Timer0(void) interrupt 1 using 1
 			}
 		}
 	}
-
+*/
 // RETURN:
 	ACC=ATEMP;
 	DPL=DPLTEMP;
@@ -341,11 +343,13 @@ void delay(int s)
 	for (m=0;m<s;m++);
 }
 
-void set_lcd()
-{
-	put_ir(0x30); //?
-	put_ir(0x06); //?
+void set_lcd()		
+{				
+	put_ir(0x38); //?	
 	put_ir(0x0c); //?
+	put_ir(0x01); //?
+	put_ir(10);		
+	put_ir(0x83);
 }
 
 void put_ir(int cntl_word)
