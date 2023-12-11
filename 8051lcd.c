@@ -45,8 +45,8 @@ put ir(001LNFxx); L=1:Data 8bit, L=0:Data 4bit; N=1:2-line display, N=0: single-
 
 //unsigned char SHOW[]={"TIME"};
 //unsigned char *pt=SHOW;
-unsigned char lcd[]={'0','1','2','3','4','5','6','7','8','9'};
-unsigned char hour1=0, hour0=0, min1=0, min0=0, sec1=0, sec0=0;
+//unsigned char lcd[]={'0','1','2','3','4','5','6','7','8','9'};
+//unsigned char hour1=0, hour0=0, min1=0, min0=0, sec1=0, sec0=0;
 unsigned int num=200; //200x5ms=1 second
 unsigned char ATEMP, DPLTEMP,DPHTEMP;
 
@@ -57,8 +57,9 @@ void put_ir(int cntl_word);
 void put_dr(int cntl_word);
 void check_busy();
 void cursor_home();
-void clock();
-short int night_dancer[112]={
+void lcd_datain();
+//void clock();
+/*short int night_dancer[112]={
 	G4, G4, D0, G4, D0,		//0
 	G4b, D0, G4b, D0, D4,	//1
 	D0,	C4,	D0, B3b, D0,	//2
@@ -82,13 +83,16 @@ short int night_dancer[112]={
 	B3b, B3b, D0, G4, D0,	//20
 	G4, D0, B4b, D0, C4,	//21
 	D0, B3b	};
+*/	
 unsigned char a[]={ 'M', 'e', 'r', 'r', 'y',' ',
-				'X', 'm', 'a', 's' };
+				'X', 'm', 'a', 's' };		
+unsigned int i,j,k;				
 void main() 
 {	
 	
 	set_lcd();
 	cursor_home();
+	lcd_datain();
 
 	TMOD = 0xD1; //	SET TIMER0 MODE 1. (11010001B)
 	TH0  = (65536-5000)/256; //ECH
@@ -101,11 +105,67 @@ void main()
 	
 	while(1)
 	{
+		melody(G4);
+		melody(G4);
+		melody(D0);
+		melody(G4);
+		melody(D0); //5
+		melody(G4b);
+		melody(D0);
+		melody(G4b);
+		melody(D0);
+		melody(D4);	//10
+		melody(D0);
+		melody(C4);
+		melody(D0);
+		melody(B3b);
+		melody(D0);	//15
+		melody(C4); 
+		melody(D0);
+		melody(B3b);
+		melody(D0);
+		melody(C4);	//20
+		melody(D0);
+		melody(B3b);
+		melody(D0);
+		melody(D4);
+		melody(D4);	//25
+		melody(D0);
+		melody(B3b);
+		melody(D0);
+		melody(C4);
+		melody(D0);	//30
+		melody(B3b);
+		melody(D0);
+		melody(C4);
+		melody(D0);
+		melody(D4);	//35
+		melody(D0);
+		melody(F4);
+		melody(D0);
+		melody(D4);
+		melody(D0);	//40
+		melody(C4);
+		melody(D0);
+		melody(B3b);
+		melody(D0);
+		melody(C4);	//45
+		melody(D0);
+		melody(D4);
+		melody(D0);
+		melody(D4);
+		melody(D4);	//50
+		melody(D0);
+		melody(G4);
+		melody(D0);
+		melody(B4b);
+		melody(D0);	//55
 		
-		if (num == 200)
+		/*if (num == 200)
 		{
 		 	clock();
 		}
+		*/
 	}
 }
 
@@ -114,8 +174,9 @@ void main()
 void melody(int pitch)
 {
 	switch(pitch){
-		unsigned int i,j,k;
+		
 		case D0:
+		P1=0x00;
 		for( i=0; i<= 200; i++){
 			for( j=0; j<= 250; j++){
 				
@@ -291,7 +352,7 @@ void Timer0(void) interrupt 1 using 1
 	TH0  = (65536-5000)/256;
 	TL0  = (65536-5000)%256;
 	TR0=1; // TIMER0 TO BE CONTINUE
-	
+	//set_lcd();
 	
 
 /*	num=num-1;
@@ -396,8 +457,13 @@ void put_dr(int data_word)
 	delay(100); // 100x16us
 	P2 = 0x01; // E=0,(R/W\,Rs)=(0,1):Data write to LCD Data Register
 }
+void lcd_datain(){
+	for( i=0; i<=10; i++){
+		put_dr(a[i]);
+	}
+}
 
-void clock()
+/*void clock()
 {
  	put_ir(0x87);
 	put_dr(lcd[sec0]);
@@ -432,3 +498,4 @@ void clock()
 	put_dr(lcd[hour1]);
 	delay(100);
 }
+*/
