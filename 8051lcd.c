@@ -108,58 +108,6 @@ void main()
 		melody(G4);
 		melody(G4);
 		melody(D0);
-		melody(G4);
-		melody(D0); //5
-		melody(G4b);
-		melody(D0);
-		melody(G4b);
-		melody(D0);
-		melody(D4);	//10
-		melody(D0);
-		melody(C4);
-		melody(D0);
-		melody(B3b);
-		melody(D0);	//15
-		melody(C4); 
-		melody(D0);
-		melody(B3b);
-		melody(D0);
-		melody(C4);	//20
-		melody(D0);
-		melody(B3b);
-		melody(D0);
-		melody(D4);
-		melody(D4);	//25
-		melody(D0);
-		melody(B3b);
-		melody(D0);
-		melody(C4);
-		melody(D0);	//30
-		melody(B3b);
-		melody(D0);
-		melody(C4);
-		melody(D0);
-		melody(D4);	//35
-		melody(D0);
-		melody(F4);
-		melody(D0);
-		melody(D4);
-		melody(D0);	//40
-		melody(C4);
-		melody(D0);
-		melody(B3b);
-		melody(D0);
-		melody(C4);	//45
-		melody(D0);
-		melody(D4);
-		melody(D0);
-		melody(D4);
-		melody(D4);	//50
-		melody(D0);
-		melody(G4);
-		melody(D0);
-		melody(B4b);
-		melody(D0);	//55
 		
 		/*if (num == 200)
 		{
