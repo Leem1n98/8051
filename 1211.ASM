@@ -414,8 +414,6 @@ LCD_INIT:
     MOV		 A, #0CH       ; display on cursor on
     CALL	 LCD_CMND
     CALL	 MSDELAY
-    MOV 	 A, #01H       ; clear lcd ACALL LCD_CMND
-    CALL	 MSDELAY
     MOV 	 A, #10        ; shift cursor right
     CALL	 LCD_CMND
     CALL	 MSDELAY
