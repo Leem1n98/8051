@@ -456,7 +456,7 @@ LCD_KEPP:
 	MOV 	 A, #38H      
     CALL	 LCD_CMND    
     CALL	 MSDELAY
-	MOV		 A, #0CH      
+    MOV		 A, #0CH      
     CALL	 LCD_CMND
     CALL	 MSDELAY
 MSDELAY:
